@@ -8,9 +8,20 @@
 .main-container ul {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     grid-gap: 30px;
-    margin-top: 50px;
+    margin: 50px 50px;
+}
+
+@media (min-width: 600px) {
+    .main-container ul {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 600px) {
+    .main-container ul {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .main-container ul li {
@@ -18,8 +29,9 @@
     flex-direction: column;
 }
 
-.main-container ul li img {
+.main-container ul li > img {
     max-width: 100%;
+    min-width: 100%;
     border-radius: 5px 5px 0 0;
 }
 
