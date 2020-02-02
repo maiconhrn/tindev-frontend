@@ -8,7 +8,7 @@ export default function Load(props) {
             <CircleSpinner
                 size={props.size || 60}
                 color={props.color || "#df4723"}
-                loading={props.loading}
+                loading={props.loading || true}
             />
         </div>
     );

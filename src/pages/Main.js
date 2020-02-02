@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import dislike from '../assets/dislike.svg';
-import itsamatch from '../assets/itsamatch.png';
 import like from '../assets/like.svg';
 import logo from '../assets/logo.svg';
 import Load from '../components/Load';
+import Match from '../components/Match';
 import api from '../services/api';
 import './Main.css';
 
@@ -108,15 +108,7 @@ export default function Main({ match }) {
           </div>
       )}
 
-      {matchDev && (
-        <div className="match-container">
-          <img src={itsamatch} alt="It's a Match"></img>
-          <img className="avatar" src={matchDev.avatar} alt={matchDev.name}></img>
-          <strong>{matchDev.name}</strong>
-          <p>{matchDev.bio}</p>
-          <button type="button" onClick={() => setMatchDev(null)}>Fechar</button>
-        </div>
-      )}
+      <Match matchDev={matchDev} setMatchDev={setMatchDev} />
     </div>
   );
 }
