@@ -53,7 +53,6 @@ export default function Main({ match }) {
       });
 
       setUsers(users.filter(user => user._id !== id));
-
     } finally {
       setLoading(false);
     }
@@ -68,7 +67,6 @@ export default function Main({ match }) {
       });
 
       setUsers(users.filter(user => user._id !== id));
-
     } finally {
       setLoading(false);
     }
