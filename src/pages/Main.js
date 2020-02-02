@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import dislike from '../assets/dislike.svg';
@@ -14,7 +14,7 @@ export default function Main({ match }) {
   const [matchDev, setMatchDev] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     (async () => {
       setLoading(true);
 
@@ -26,7 +26,8 @@ export default function Main({ match }) {
         });
 
         setUsers(response.data);
-      } finally {
+        setLoading(false);
+      } catch (e) {
         setLoading(false);
       }
     })();
@@ -46,6 +47,8 @@ export default function Main({ match }) {
 
   async function handleDislike(id) {
     try {
+      setLoading(true);
+
       await api.post(`/devs/${id}/dislikes`, null, {
         headers: {
           user: match.params.id
@@ -53,13 +56,16 @@ export default function Main({ match }) {
       });
 
       setUsers(users.filter(user => user._id !== id));
-    } finally {
+      setLoading(false);
+    } catch (e) {
       setLoading(false);
     }
   }
 
   async function handleLike(id) {
     try {
+      setLoading(true);
+
       await api.post(`/devs/${id}/likes`, null, {
         headers: {
           user: match.params.id
@@ -67,7 +73,8 @@ export default function Main({ match }) {
       });
 
       setUsers(users.filter(user => user._id !== id));
-    } finally {
+      setLoading(false);
+    } catch (e) {
       setLoading(false);
     }
   }

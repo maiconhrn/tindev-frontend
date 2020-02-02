@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import logo from '../assets/logo.svg';
 import Load from '../components/Load';
 import api from '../services/api';
@@ -7,29 +7,24 @@ import './Login.css';
 export default function Login({ history }) {
     const [username, setUsername] = useState('');
     const [loading, setLoading] = useState(false);
-    const [userID, setUserID] = useState('');
 
     async function handleSubmit(event) {
+        event.preventDefault();
+
         try {
             setLoading(true);
-
-            event.preventDefault();
 
             const response = await api.post('/devs', {
                 username
             });
 
-            setUserID(response.data._id);
-        } finally {
+            setLoading(false);
+            
+            history.push(`/dev/${response.data._id}`);
+        } catch (e) {
             setLoading(false);
         }
     }
-
-    useEffect(() => {
-        if (userID) {
-            history.push(`/dev/${userID}`);
-        }
-    }, [userID, history])
 
     return (
         <div className="login-container">
