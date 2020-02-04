@@ -89,12 +89,12 @@ export default function Main({ match }) {
 
       {users.length > 0 ? (
         <ul>
-          {users.map(user => (
-            <li key={user._id}>
+          {users.map((user, index) => (
+            <li key={user._id} style={{ zIndex: users.length - index }}>
               <img src={user.avatar} alt={user.name}></img>
               <footer>
                 <strong>{user.name}</strong>
-                <p>{user.bio}</p>
+                <p className="max-lines">{user.bio}</p>
               </footer>
               <div className="buttons">
                 <button type="button" onClick={() => handleDislike(user._id)}>
