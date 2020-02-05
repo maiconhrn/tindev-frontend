@@ -84,14 +84,20 @@ export default function Main({ match }) {
       <Load loading={loading} />
 
       <Link to="/">
-        <img src={logo} alt="Tindev" />
+        <span className="logoff">
+          <img src={logo} alt="Tindev"
+            onLoadStart={() => setLoading(true)}
+            onLoad={() => setLoading(false)} />
+        </span>
       </Link>
 
       {users.length > 0 ? (
         <ul>
           {users.map((user, index) => (
             <li key={user._id} style={{ zIndex: users.length - index }}>
-              <img src={user.avatar} alt={user.name}></img>
+              <img src={user.avatar} alt={user.name}
+                onLoadStart={() => setLoading(true)}
+                onLoad={() => setLoading(false)}></img>
               <footer>
                 <strong>{user.name}</strong>
                 <p className="max-lines">{user.bio}</p>

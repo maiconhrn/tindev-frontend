@@ -19,7 +19,7 @@ export default function Login({ history }) {
             });
 
             setLoading(false);
-            
+
             history.push(`/dev/${response.data._id}`);
         } catch (e) {
             setLoading(false);
@@ -31,7 +31,9 @@ export default function Login({ history }) {
             <Load loading={loading} />
 
             <form onSubmit={handleSubmit}>
-                <img src={logo} alt="Tindev" />
+                <img src={logo} alt="Tindev"
+                    onLoadStart={() => setLoading(true)}
+                    onLoad={() => setLoading(false)} />
                 <input type="text" placeholder="Digite seu usuário do GitHub"
                     value={username}
                     onChange={event => setUsername(event.target.value)}

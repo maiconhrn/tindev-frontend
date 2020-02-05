@@ -65,6 +65,11 @@
     transition: all 0.2s;
 }
 
+.main-container .logoff:hover img {
+    transform: translateY(-5px);
+    transition: all 0.2s;
+}
+
 .main-container .empty {
     font-size: 32px;
     color: #999;
