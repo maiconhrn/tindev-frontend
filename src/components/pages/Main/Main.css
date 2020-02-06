@@ -127,7 +127,9 @@
         margin-right: 20px;
     }
 
-    .main-container ul li .buttons {
-        margin-top: 100px;
+    .main-container ul li footer {
+        min-height: 20%;
+        max-height: 20%;
+        margin-bottom: 80px;
     }
 }
