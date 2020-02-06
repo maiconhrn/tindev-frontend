@@ -47,7 +47,7 @@
 }
 
 .main-container ul li .buttons button {
-    overflow: hidden;
+    overflow: auto;
     position: relative;
     height: 50px;
     border: 0;

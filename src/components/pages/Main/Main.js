@@ -118,7 +118,7 @@ export default function Main({ match }) {
       ) : !pageLoading && (
         <div className="empty">
           Acabou :(
-          </div>
+        </div>
       )}
 
       <Match matchDev={matchDev} setMatchDev={setMatchDev} />
