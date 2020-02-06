@@ -28,6 +28,7 @@
 }
 
 .login-container form button {
+    overflow: hidden;
     position: relative;
     margin-top: 10px;
     border: 0;

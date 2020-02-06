@@ -83,7 +83,7 @@ export default function Main({ match }) {
 
   return (
     <div className="main-container">
-      <Load isLoading={pageLoading} />
+      {/* <Load isLoading={pageLoading} /> */}
 
       <Link to="/">
         <span className="logoff">
@@ -103,12 +103,12 @@ export default function Main({ match }) {
               <div className="buttons">
                 <button type="button" onClick={() => handleDislike(user._id)}>
                   <Load isLoading={dislikeLoading}
-                    size={30} style={{ backgroundColor: 'transparent' }} />
+                    size={30} />
                   <img src={dislike} alt="Dislike" />
                 </button>
                 <button type="button" onClick={() => handleLike(user._id)}>
                   <Load isLoading={likeLoading}
-                    size={30} style={{ backgroundColor: 'transparent' }} />
+                    size={30} />
                   <img src={like} alt="Like" />
                 </button>
               </div>
