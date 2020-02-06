@@ -1,6 +1,6 @@
 .loading {
     z-index: 1000;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -9,5 +9,5 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.2)
+    background: #fff;
 }

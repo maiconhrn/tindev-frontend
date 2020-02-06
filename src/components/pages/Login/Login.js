@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import logo from '../assets/logo.svg';
-import Load from '../components/Load';
-import api from '../services/api';
+import logo from '../../../assets/logo.svg';
+import Load from '../../Load/Load';
+import api from '../../../services/api';
 import './Login.css';
 
 export default function Login({ history }) {
@@ -28,8 +28,6 @@ export default function Login({ history }) {
 
     return (
         <div className="login-container">
-            <Load loading={loading} />
-
             <form onSubmit={handleSubmit}>
                 <img src={logo} alt="Tindev"
                     onLoadStart={() => setLoading(true)}
@@ -38,7 +36,10 @@ export default function Login({ history }) {
                     value={username}
                     onChange={event => setUsername(event.target.value)}
                 />
-                <button type="submit">Entrar</button>
+                <button type="submit">
+                    <Load loading={loading} size={30}/>
+                    Entrar
+                </button>
             </form>
         </div>
     );

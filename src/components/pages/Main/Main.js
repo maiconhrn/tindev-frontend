@@ -1,22 +1,24 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
-import dislike from '../assets/dislike.svg';
-import like from '../assets/like.svg';
-import logo from '../assets/logo.svg';
-import Load from '../components/Load';
-import Match from '../components/Match';
-import api from '../services/api';
+import dislike from '../../../assets/dislike.svg';
+import like from '../../../assets/like.svg';
+import logo from '../../../assets/logo.svg';
+import Load from '../../Load/Load';
+import Match from '../../Match/Match';
+import api from '../../../services/api';
 import './Main.css';
 
 export default function Main({ match }) {
   const [users, setUsers] = useState([]);
   const [matchDev, setMatchDev] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(false);
+  const [dislikeLoading, setDislikeLoading] = useState(false);
+  const [likeLoading, setLikeLoading] = useState(false);
 
   useLayoutEffect(() => {
     (async () => {
-      setLoading(true);
+      setPageLoading(true);
 
       try {
         const response = await api.get('/devs', {
@@ -26,9 +28,9 @@ export default function Main({ match }) {
         });
 
         setUsers(response.data);
-        setLoading(false);
+        setPageLoading(false);
       } catch (e) {
-        setLoading(false);
+        setPageLoading(false);
       }
     })();
   }, [match.params.id]);
@@ -47,7 +49,7 @@ export default function Main({ match }) {
 
   async function handleDislike(id) {
     try {
-      setLoading(true);
+      setDislikeLoading(true);
 
       await api.post(`/devs/${id}/dislikes`, null, {
         headers: {
@@ -56,15 +58,15 @@ export default function Main({ match }) {
       });
 
       setUsers(users.filter(user => user._id !== id));
-      setLoading(false);
+      setDislikeLoading(false);
     } catch (e) {
-      setLoading(false);
+      setDislikeLoading(false);
     }
   }
 
   async function handleLike(id) {
     try {
-      setLoading(true);
+      setLikeLoading(true);
 
       await api.post(`/devs/${id}/likes`, null, {
         headers: {
@@ -73,21 +75,19 @@ export default function Main({ match }) {
       });
 
       setUsers(users.filter(user => user._id !== id));
-      setLoading(false);
+      setLikeLoading(false);
     } catch (e) {
-      setLoading(false);
+      setLikeLoading(false);
     }
   }
 
   return (
     <div className="main-container">
-      <Load loading={loading} />
+      <Load isLoading={pageLoading} />
 
       <Link to="/">
         <span className="logoff">
-          <img src={logo} alt="Tindev"
-            onLoadStart={() => setLoading(true)}
-            onLoad={() => setLoading(false)} />
+          <img src={logo} alt="Tindev" />
         </span>
       </Link>
 
@@ -95,25 +95,27 @@ export default function Main({ match }) {
         <ul>
           {users.map((user, index) => (
             <li key={user._id} style={{ zIndex: users.length - index }}>
-              <img src={user.avatar} alt={user.name}
-                onLoadStart={() => setLoading(true)}
-                onLoad={() => setLoading(false)}></img>
+              <img src={user.avatar} alt={user.name}></img>
               <footer>
                 <strong>{user.name}</strong>
                 <p className="max-lines">{user.bio}</p>
               </footer>
               <div className="buttons">
                 <button type="button" onClick={() => handleDislike(user._id)}>
+                  <Load isLoading={dislikeLoading}
+                    size={30} style={{ backgroundColor: 'transparent' }} />
                   <img src={dislike} alt="Dislike" />
                 </button>
                 <button type="button" onClick={() => handleLike(user._id)}>
+                  <Load isLoading={likeLoading}
+                    size={30} style={{ backgroundColor: 'transparent' }} />
                   <img src={like} alt="Like" />
                 </button>
               </div>
             </li>
           ))}
         </ul>
-      ) : !loading && (
+      ) : !pageLoading && (
         <div className="empty">
           Acabou :(
           </div>
