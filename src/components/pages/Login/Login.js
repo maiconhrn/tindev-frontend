@@ -37,7 +37,7 @@ export default function Login({ history }) {
                     onChange={event => setUsername(event.target.value)}
                 />
                 <button type="submit">
-                    <Load loading={loading} size={30}/>
+                    <Load isLoading={loading} size={30}/>
                     Entrar
                 </button>
             </form>
