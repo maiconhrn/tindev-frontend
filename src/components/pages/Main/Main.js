@@ -4,8 +4,8 @@ import io from 'socket.io-client';
 import dislike from '../../../assets/dislike.svg';
 import like from '../../../assets/like.svg';
 import logo from '../../../assets/logo.svg';
-import Load from '../../Load/Load';
-import Match from '../../Match/Match';
+import Load from '../../common/Load/Load';
+import Match from '../../common/Match/Match';
 import api from '../../../services/api';
 import './Main.css';
 

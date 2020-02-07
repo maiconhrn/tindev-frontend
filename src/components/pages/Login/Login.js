@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../../../assets/logo.svg';
-import Load from '../../Load/Load';
+import Load from '../../common/Load/Load';
 import api from '../../../services/api';
 import './Login.css';
 
