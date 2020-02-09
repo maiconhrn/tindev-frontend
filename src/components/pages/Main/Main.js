@@ -4,9 +4,9 @@ import io from 'socket.io-client';
 import dislike from '../../../assets/dislike.svg';
 import like from '../../../assets/like.svg';
 import logo from '../../../assets/logo.svg';
+import api from '../../../services/api';
 import Load from '../../common/Load/Load';
 import Match from '../../common/Match/Match';
-import api from '../../../services/api';
 import './Main.css';
 
 export default function Main({ match }) {
@@ -14,6 +14,7 @@ export default function Main({ match }) {
   const [matchDev, setMatchDev] = useState(null);
   const [pageLoading, setPageLoading] = useState(false);
   const [dislikeLoading, setDislikeLoading] = useState(false);
+  const [loadingUser, setLoadingUser] = useState('');
   const [likeLoading, setLikeLoading] = useState(false);
 
   useLayoutEffect(() => {
@@ -50,6 +51,7 @@ export default function Main({ match }) {
   async function handleDislike(id) {
     try {
       setDislikeLoading(true);
+      setLoadingUser(id);
 
       await api.post(`/devs/${id}/dislikes`, null, {
         headers: {
@@ -67,6 +69,7 @@ export default function Main({ match }) {
   async function handleLike(id) {
     try {
       setLikeLoading(true);
+      setLoadingUser(id);
 
       await api.post(`/devs/${id}/likes`, null, {
         headers: {
@@ -83,7 +86,7 @@ export default function Main({ match }) {
 
   return (
     <div className="main-container">
-      {/* <Load isLoading={pageLoading} /> */}
+      <Load isLoading={pageLoading} />
 
       <Link to="/">
         <span className="logoff">
@@ -102,12 +105,12 @@ export default function Main({ match }) {
               </footer>
               <div className="buttons">
                 <button type="button" onClick={() => handleDislike(user._id)}>
-                  <Load isLoading={dislikeLoading}
+                  <Load isLoading={dislikeLoading && loadingUser == user._id}
                     size={30} />
                   <img src={dislike} alt="Dislike" />
                 </button>
                 <button type="button" onClick={() => handleLike(user._id)}>
-                  <Load isLoading={likeLoading}
+                  <Load isLoading={likeLoading && loadingUser == user._id}
                     size={30} />
                   <img src={like} alt="Like" />
                 </button>
